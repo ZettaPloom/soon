@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coming Soon</title>
+    <style>
+      body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: url("./background.webp") no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        backdrop-filter: blur(5px);
+        color: #ffffff; /* Dark gray for readability */
+        font-family: "Courier New", Courier, monospace; /* Binary-style font */
+        overflow: hidden;
+      }
+
+      #animated-message {
+        font-size: 2.5rem;
+        text-align: center;
+        animation: none;
+        white-space: pre-wrap;
+        max-width: 90%;
+        word-wrap: break-word;
+      }
+
+      @media (max-width: 768px) {
+        #animated-message {
+          font-size: 2rem; /* Adjust font size for smaller screens */
+        }
+      }
+
+      @media (max-width: 480px) {
+        #animated-message {
+          font-size: 1.5rem; /* Further adjust font size for very small screens */
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!--[if IE]>
+      <script src="./oneko-ie6.js"></script>
+    <![endif]-->
+    <!--[if !IE]><!-->
+    <script src="./oneko.js"></script>
+    <!--<![endif]-->
+    <div id="animated-message"></div>
+
+    <script>
+      // Define messages for each language
+      const messages = {
+        en: [
+          "Hold on... something amazing is happening.",
+          "Stay tuned, we are creating a wonderful experience!",
+          "Great vibes and new experiences awaits!",
+        ],
+        es: [
+          "Espera... algo asombroso está sucediendo.",
+          "Mantente atento, estamos creando una experiencia maravillosa!",
+          "¡Grandes vibras y nuevas experiencias te esperan!",
+        ],
+      };
+
+      // Detect the user's preferred language
+      const userLang = navigator.language || navigator.userLanguage;
+      const lang = userLang.startsWith("es") ? "es" : "en"; // Default to English
+
+      // Set the messages based on the detected language
+      const messageParts = messages[lang];
+      const messageContainer = document.getElementById("animated-message");
+
+      let currentPart = 0;
+      let charIndex = 0;
+
+      function typeMessage() {
+        if (charIndex < messageParts[currentPart].length) {
+          messageContainer.textContent +=
+            messageParts[currentPart].charAt(charIndex);
+          charIndex++;
+          setTimeout(typeMessage, 50); // Adjust typing speed
+        } else {
+          setTimeout(() => {
+            messageContainer.textContent = "";
+            charIndex = 0;
+            currentPart = (currentPart + 1) % messageParts.length;
+            typeMessage();
+          }, 2000); // Pause before switching to the next message
+        }
+      }
+
+      typeMessage(); // Initialize typing animation
+    </script>
+  </body>
+</html>
