@@ -9,7 +9,6 @@
         margin: 0;
         height: 100vh;
         display: flex;
-        flex-direction: column;
         align-items: center;
         justify-content: center;
         background: url("./background.webp") no-repeat center center fixed;
@@ -30,44 +29,17 @@
         white-space: pre-wrap;
         max-width: 90%;
         word-wrap: break-word;
-        margin-bottom: 20px;
-      }
-
-      #surprise-button {
-        font-size: 1.5rem;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        background-color: #91186c; /* Vibrant red-orange */
-        color: white;
-        cursor: pointer;
-        transition: background-color 0.3s;
-        display: none; /* Initially hidden */
-      }
-
-      #surprise-button:hover {
-        background-color: #328b61; /* Darker orange */
       }
 
       @media (max-width: 768px) {
         #animated-message {
           font-size: 2rem; /* Adjust font size for smaller screens */
         }
-
-        #surprise-button {
-          font-size: 1.2rem;
-          padding: 8px 16px;
-        }
       }
 
       @media (max-width: 480px) {
         #animated-message {
           font-size: 1.5rem; /* Further adjust font size for very small screens */
-        }
-
-        #surprise-button {
-          font-size: 1rem;
-          padding: 6px 12px;
         }
       }
     </style>
@@ -80,7 +52,6 @@
     <script src="./oneko.js"></script>
     <!--<![endif]-->
     <div id="animated-message"></div>
-    <button id="surprise-button"></button>
 
     <script>
       // Define messages for each language
@@ -88,7 +59,7 @@
         en: [
           "Hold on... something amazing is happening.",
           "Stay tuned, we are creating a wonderful experience!",
-          "Great vibes and new experiences await!",
+          "Great vibes and new experiences awaits!",
         ],
         es: [
           "Espera... algo asombroso está sucediendo.",
@@ -97,23 +68,13 @@
         ],
       };
 
-      const buttonLabels = {
-        en: "Surprise!",
-        es: "¡Sorpresa!",
-      };
-
       // Detect the user's preferred language
       const userLang = navigator.language || navigator.userLanguage;
       const lang = userLang.startsWith("es") ? "es" : "en"; // Default to English
 
-      // Set the messages and button label based on the detected language
+      // Set the messages based on the detected language
       const messageParts = messages[lang];
-      const buttonLabel = buttonLabels[lang];
-
       const messageContainer = document.getElementById("animated-message");
-      const surpriseButton = document.getElementById("surprise-button");
-
-      surpriseButton.textContent = buttonLabel;
 
       let currentPart = 0;
       let charIndex = 0;
@@ -129,21 +90,10 @@
             messageContainer.textContent = "";
             charIndex = 0;
             currentPart = (currentPart + 1) % messageParts.length;
-
-            // If all messages have been displayed once, show the button
-            if (currentPart === 0) {
-              surpriseButton.style.display = "block";
-            }
-
             typeMessage();
           }, 2000); // Pause before switching to the next message
         }
       }
-
-      // Redirect on button click
-      surpriseButton.addEventListener("click", () => {
-        window.location.href = "https://us.alzate.me";
-      });
 
       typeMessage(); // Initialize typing animation
     </script>
